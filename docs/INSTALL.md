@@ -26,3 +26,13 @@ cd ffmpeg
 make -j4
 sudo make install
 ~~~~
+
+## Running bash script on boot in foreground
+
+TODO
+
+* https://alan-mushi.github.io/2014/10/26/execute-an-interactive-script-at-boot-with-systemd.html
+* https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=165301
+* https://raspberrypi.stackexchange.com/questions/15475/run-bash-script-on-startup
+* https://superuser.com/questions/584931/howto-start-an-interactive-script-at-ubuntu-startup
+* 
