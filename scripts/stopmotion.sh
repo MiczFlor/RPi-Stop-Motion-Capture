@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # packages needed:
-# sudo apt-get install fswebcam ffmpeg
+# sudo apt-get install fswebcam
 
 clear
 
@@ -36,15 +36,15 @@ do
     
     # If no active project and project folder exist,
     # create them
-    if [ ! -f ../shared/ProjectActive.txt ]; then
+    if [ ! -f ProjectActive.txt ]; then
         # create the project folder
         mkdir ../shared/PROJECTS/$NOW
         # write project ID in ProjectActive.txt file
-        echo $NOW > ../shared/ProjectActive.txt
+        echo $NOW > ProjectActive.txt
     fi
     
     # Read active Project ID into variable
-    PROJECTACTIVE=`cat ../shared/ProjectActive.txt`
+    PROJECTACTIVE=`cat ProjectActive.txt`
 
     # If no folder for the active project ID exists, create it
     if [ ! -d ../shared/PROJECTS/$PROJECTACTIVE ]; then
@@ -60,18 +60,18 @@ do
         # create the project folder
         mkdir ../shared/PROJECTS/$PROJECTACTIVE
         # write project ID in ProjectActive.txt file
-        echo $PROJECTACTIVE > ../shared/ProjectActive.txt
+        echo $PROJECTACTIVE > ProjectActive.txt
     elif [ $char = "d" ]; then
         echo "Delete all frames of current project"
         rm ../shared/PROJECTS/$PROJECTACTIVE/*
     elif [ $char = "D" ]; then
         echo "Delete all frames AND current project"
         rm -rf ../shared/PROJECTS/$PROJECTACTIVE
-        rm ../shared/ProjectActive.txt
+        rm ProjectActive.txt
     elif [ $char = "p" ]; then
         echo "Take picture"
         PICNAME=`date +%Y-%m-%d_%H-%M-%S-%N`
-        fswebcam -r 1920x1080 --no-banner --save ../shared/PROJECTS/$PROJECTACTIVE/pic$PICNAME.jpg
+        fswebcam -r 1920x1080 --device /dev/video0 --no-banner --save ../shared/PROJECTS/$PROJECTACTIVE/pic$PICNAME.jpg
     elif [ $char = "1" ]; then
         echo "Render video with 10 frames per second"
         cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 10 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-10fps.mp4
