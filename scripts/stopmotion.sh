@@ -73,20 +73,32 @@ do
         PICNAME=`date +%Y-%m-%d_%H-%M-%S-%N`
         fswebcam -r 1920x1080 --device /dev/video0 --no-banner --save ../shared/PROJECTS/$PROJECTACTIVE/pic$PICNAME.jpg
     elif [ $char = "1" ]; then
+        echo "Render video with 1 frames per second"
+        cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 1 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-1fps.mp4
+    elif [ $char = "2" ]; then
+        echo "Render video with 3 frames per second"
+        cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 3 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-3fps.mp4
+    elif [ $char = "3" ]; then
+        echo "Render video with 5 frames per second"
+        cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 5 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-5fps.mp4
+    elif [ $char = "4" ]; then
         echo "Render video with 10 frames per second"
         cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 10 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-10fps.mp4
-    elif [ $char = "2" ]; then
+    elif [ $char = "5" ]; then
         echo "Render video with 15 frames per second"
         cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 15 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-15fps.mp4
-    elif [ $char = "3" ]; then
+    elif [ $char = "6" ]; then
         echo "Render video with 20 frames per second"
         cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 20 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-20fps.mp4
-    elif [ $char = "4" ]; then
+    elif [ $char = "7" ]; then
         echo "Render video with 25 frames per second"
         cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 25 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-25fps.mp4
-    elif [ $char = "5" ]; then
+    elif [ $char = "8" ]; then
         echo "Render video with 30 frames per second"
-        cat ../sha
+        cat ../shared/PROJECTS/$PROJECTACTIVE/*.jpg | ffmpeg -f image2pipe -r 30 -vcodec mjpeg -i - -vcodec libx264 ../shared/VIDEOS/$PROJECTACTIVE-30fps.mp4
+    elif [ $char = "q" ]; then
+        echo "Shutdown the RPi"
+        sudo halt
     else
         # display one character at a time
         echo  "$char"
